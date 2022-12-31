@@ -431,6 +431,11 @@ document.addEventListener("change", function(e) {
 
   })
 
+document.addEventListener("dblclick", function(e) {
+   deleteFreq();
+  
+});  
+
 $(".side-button").click(function() {
   if ($(this).css("right") == "0px") {
     $(this).animate({
