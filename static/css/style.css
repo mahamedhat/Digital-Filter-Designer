@@ -49,47 +49,7 @@
   }
   
   
-  /*** Side control menu ***/
-  .sidebar {
-    grid-area: sidebar;
-    margin-top: 150px;
-    width: 50px;
-    height: 320px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.65);
-    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
-    border-right: 2px solid rgba(255, 255, 255, .09);
-    transition: .4s ease-in-out;
-    align-items: center;
-    border-radius: 100px;
-  }
   
-  .sidebar nav .nav-item {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-radius: 4px;
-    margin-left: -26px;
-    margin-top: 5px;
-    width: 26px;
-    height: 56px;
-    color: rgb(0, 0, 0);
-    transition: .3s;
-  }
-  .sidebar nav .nav-item i {
-    font-size: 26px;
-  }
-  
-  .sidebar nav .nav-item.active {
-    background: rgba(0, 0, 0, 0.1) !important;
-    width: 26px;
-    height: 40px;
-  }
-  
-  .sidebar nav .nav-item:hover {
-    background: rgba(255, 255, 255, .1);
-  }
   
   
   /*** Boxes ***/
@@ -367,11 +327,12 @@
       grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
       grid-template-areas:
         "content1"
+        "controls-bar"
         "content2"
         "content4";
   
-    }
-  }
+    } 
+   }
   
   
   

@@ -239,26 +239,26 @@ function handleMouseMove(e) {
 function getSignals() {
   arr = [signalIterator, slidervalue];
   data = JSON.stringify(arr);
-//   $.ajax({
-//     url: '/getSignals',
-//     type: 'post',
-//     contentType: 'application/json',
-//     dataType: 'json',
-//     data: data,
-//     success: function(response) {
-//       xData = response.xAxisData;
-//       yData = response.yAxisData;
-//       filtered = response.filter;
-//       length = response.datalength;
-//       signalIterator = signalIterator + 1;
-//       drawReposne(xData, filtered, 'content2', 'signal');
-//       drawReposne(xData, filtered, 'content4','filtered Signal');
+  $.ajax({
+    url: '/getSignals',
+    type: 'post',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: data,
+    success: function(response) {
+      xData = response.xAxisData;
+      yData = response.yAxisData;
+      filtered = response.filter;
+      length = response.datalength;
+      signalIterator = signalIterator + 1;
+      drawReposne(xData, filtered, 'content2', 'signal');
+      drawReposne(xData, filtered, 'content4','filtered Signal');
 
-//       if (signalIterator * slidervalue < length) {
-//         setTimeout(getSignals, slidervalue * 10);
-//       }
-//     }
-//   });
+      if (signalIterator * slidervalue < length) {
+        setTimeout(getSignals, slidervalue * 10);
+      }
+    }
+  });
 }
 
 function sliderValue() {
@@ -271,26 +271,26 @@ function sliderValue() {
 function sendzeros() {
   zerosvalues = zeros.map(getvalues);
   let js_zeros = JSON.stringify(zerosvalues);
-//   $.ajax({
-//     url: '/getzeros',
-//     type: 'post',
-//     contentType: 'application/json',
-//     dataType: 'json',
-//     data: js_zeros
-//   });
+  $.ajax({
+    url: '/getzeros',
+    type: 'post',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: js_zeros
+  });
 }
 
 function sendpoles() {
   polesvalues = poles.map(getvalues)
   let js_poles = JSON.stringify(polesvalues);
 
-//   $.ajax({
-//     url: '/getpoles',
-//     type: 'post',
-//     contentType: 'application/json',
-//     dataType: 'json',
-//     data: js_poles
-//   });
+  $.ajax({
+    url: '/getpoles',
+    type: 'post',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: js_poles
+  });
 }
 
 function updateRespose() {
@@ -300,22 +300,23 @@ function updateRespose() {
   drawAll(ctxzplane, zeros, poles, '#0000FF');
   drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles, '#91b233')
 
-//   $.ajax({
-//     url: '/sendfrequencyresposedata',
-//     type: 'get',
-//     success: function(response) {
-//       data = response;
-//       magnitude = data.magnitude;
-//       w = data.w;
-//       angle = data.angle;
-//       drawReposne(w, magnitude, 'content2', 'magnitude');
-//       drawReposne(w, angle, 'content4', 'angle');
 
-//       ctxzplane.clearRect(0, 0, cw, ch);
-//       drawAll(ctxzplane, zeros, poles, '#0000FF');
-//       drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles, '#91b233')
-//     }
-//   });
+  $.ajax({
+    url: '/sendfrequencyresposedata',
+    type: 'get',
+    success: function(response) {
+      data = response;
+      magnitude = data.magnitude;
+      w = data.w;
+      angle = data.angle;
+      drawReposne(w, magnitude, 'content2', 'magnitude');
+      drawReposne(w, angle, 'content4', 'angle');
+
+      ctxzplane.clearRect(0, 0, cw, ch);
+      drawAll(ctxzplane, zeros, poles, '#0000FF');
+      drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles, '#91b233')
+    }
+  });
 }
 
 // const inputElement = document.getElementById("signalFile");
