@@ -217,7 +217,9 @@
     
   }
 
-  
+  .btn:hover{
+    border: 1px transparent;
+  }
   .btn:hover label {
     opacity: 1;
     
@@ -244,6 +246,7 @@
   }
   
   label { 
+    text-align:center;
     font-size: .4em; 
     line-height: 4em;
     text-transform: uppercase;
