@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Filter Designer</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,800,900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- JavaScript files  -->
+    <script  src="../static/js/bootstrap.bundle.min.js"></script>
+    <script  src="../static/js/jquery-3.6.0.min.js"></script>
+    <script  src="../static/js/plotly-2.8.3.min.js"></script>
+
+</head>
+
+<body>
+<!--   Application Name     -->
+<h1 class="heading"> Digital Filter Designer </h1>
+
+<!--   Application Body     -->
+<div class="container">
+   
+
+    <!--   The Z plane      -->
+    <div class="content" id="content1">
+        <canvas id="zplanecanvas" width="300" height="300" >
+        </canvas>
+    </div>
+    <!--   Upload/Enable/Disable Menu      -->
+    <div class="controls-bar">
+        <a>
+
+            <div class="button r" id="button-1">
+                <input id="check1" type="checkbox" class="checkbox"  />
+                <div class="knobs"></div>
+                <div class="layer"></div>
+            </div>
+
+
+
+        </a>
+        <div class="btn">
+            <div class="innerbtn" onclick="clearallZeros()">
+              <label>zero</label>
+            </div>
+          </div>
+        <div class="outer">
+            <div class="inner" onclick="clearallPoles()">
+              <label>pole</label>
+            </div>
+          </div>
+        <a href="#"><i class='fas fa-trash-alt icon trash-icon' onclick="clearAll()"></i></a>
+        
+    </div>
+
+    <!--   Magnitude response      -->
+
+    <div class="content" id="content2">
+        <div class="canvas" id="konva-container-2"> </div>
+    </div>
+    
+    
+    <!--   Phase response     -->
+    <div class="content" id="content4">
+        <div class="canvas" id="konva-container-4"> </div>
+    </div>
+ 
+</div>
+
+<script src="../static/js/main.js"></script>
+<script src="../static/js/allpassfilter.js"></script>
+</body>
+
+</html>

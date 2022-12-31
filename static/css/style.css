@@ -1,0 +1,378 @@
+
+:root {
+    --main-radius: 30px;
+    --main-padding: 5px;
+    --clr-graylight: #cfd8dc;
+    --clr-graymed: #90a4ae;
+    --radius: 20px;
+    --animation-curve: cubic-bezier(0.34, 1.36, 0.2, 1);
+  }
+  
+  body {
+    font-family: 'Comic Sans MS';
+  }
+  
+  html{
+    /* background-image: linear-gradient(to right, #c6c6c6 0%, rgb(255, 255, 255) 100%); */
+    background-image: linear-gradient(to right, #8360c3, #2ebf91);
+    background-repeat: no-repeat;
+  }
+  
+  p{
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /*** Heading ***/
+  .heading{
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: -18px;
+  }
+  
+  /*** Application's body ***/
+  .container {
+    display: grid;
+    height: 90vh;
+    grid-template-columns: 0.2fr 1fr 0.1fr 1fr 1fr;
+    grid-template-rows:  1fr 1fr;
+    grid-template-areas:
+      " content1 controls-bar content2 "
+      " content1 controls-bar content4 ";
+    grid-gap: 1.5rem;
+    font-weight: 800;
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    margin: 30px;
+  }
+  
+  
+  /*** Side control menu ***/
+  .sidebar {
+    grid-area: sidebar;
+    margin-top: 150px;
+    width: 50px;
+    height: 320px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+    border-right: 2px solid rgba(255, 255, 255, .09);
+    transition: .4s ease-in-out;
+    align-items: center;
+    border-radius: 100px;
+  }
+  
+  .sidebar nav .nav-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    margin-left: -26px;
+    margin-top: 5px;
+    width: 26px;
+    height: 56px;
+    color: rgb(0, 0, 0);
+    transition: .3s;
+  }
+  .sidebar nav .nav-item i {
+    font-size: 26px;
+  }
+  
+  .sidebar nav .nav-item.active {
+    background: rgba(0, 0, 0, 0.1) !important;
+    width: 26px;
+    height: 40px;
+  }
+  
+  .sidebar nav .nav-item:hover {
+    background: rgba(255, 255, 255, .1);
+  }
+  
+  
+  /*** Boxes ***/
+  .content{
+
+    border-radius: 10px;
+    /* padding-top: var(--main-padding); */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    width: 300px;
+    height: 300px;
+    
+  }
+  
+  #content2 {
+    margin-top: 20px;
+    width: 900px;
+    height: 280px;
+    grid-area: content2;
+  }
+  
+  
+  
+  #content4 {
+    width: 900px;
+    height: 280px;
+    grid-area: content4;
+  }
+  
+  
+  
+  /*** Canvas inside boxes ***/
+  .canvas{
+      background-color: #f4f4f4;
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      align-self: center;
+  }
+  
+  /*** Box controls ***/
+  .controls-bar {
+    width: 45px;
+    height: fit-content;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.65);
+    align-self: center;
+  }
+  
+  .controls-bar a {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    transition: all 0.3s ease;
+    color: black;
+    font-size: 25px;
+  }
+  
+  .controls-bar a:hover {
+    background-color: white;
+  }
+  
+  .active {
+    background-color: white;
+  }
+  
+  
+  /* switch */
+  
+  .button-cover:before {
+    counter-increment: button-counter;
+    content: counter(button-counter);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #d7e3e3;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+  }
+  
+  .button-cover,
+  .knobs,
+  .layer {
+    position: absolute;
+    bottom: 0;
+  }
+  
+  .button {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -20px auto 5 auto;
+  }
+  
+  .button.r,
+  .button.r .layer {
+    width: 10px;
+    height: 35px;
+    margin-left: 3px;
+    padding: 1px;
+    border-radius: 100px;
+  }
+  
+  .trash-icon {
+    opacity: 1;
+    top: 0%;
+  }
+  
+
+  .btn {
+    position: relative;
+    display:block;
+    margin: auto;
+    margin-top: 20px;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    border: 1px solid black;
+    align-self: center;
+    
+  }
+
+  
+  .btn:hover label {
+    opacity: 1;
+    
+
+    
+
+  }
+  
+
+  
+  
+  
+  .outer {
+    position: relative;
+    margin: auto;
+    width: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .inner {
+    width: inherit;
+    text-align: center;
+  }
+  
+  label { 
+    font-size: .4em; 
+    line-height: 4em;
+    text-transform: uppercase;
+    color: #fff;
+    transition: all .3s ease-in;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .inner:before, .inner:after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: inherit;
+    background: black;
+    left: 0;
+    transition: all .3s ease-in;
+  }
+  
+  .inner:before {
+    top: 50%; 
+    transform: rotate(45deg);  
+  }
+  
+  .inner:after {  
+    bottom: 50%;
+    transform: rotate(-45deg);  
+  }
+  
+  .outer:hover label {
+    opacity: 1;
+  }
+  
+  .outer:hover .inner:before,
+  .outer:hover .inner:after {
+    transform: rotate(0);
+  }
+  
+  .outer:hover .inner:before {
+    top: 0;
+  }
+  
+  .outer:hover .inner:after {
+    bottom: 0;
+  }
+
+
+
+
+  .checkbox {
+    position: relative;
+    width: 30px;
+    height: 50px;
+    margin-left: -1px;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+  }
+  
+  .knobs {
+    width: 30px;
+    height: 35px;
+    margin-left: -27.5px;
+    z-index: 2;
+  }
+  
+  .layer {
+    position: absolute;
+    margin-left: -10px;
+    transition: 0.3s ease all;
+    z-index: 1;
+  }
+  
+  
+  #button-1 .knobs:before {
+    content: "Z";
+    position: absolute;
+    top: -4px;
+    width: 14px;
+    height: 5px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    left: 26px;
+    background-color: #000000;
+    border-radius: 50%;
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+  }
+  
+  #button-1 .layer{
+    background-color:rgb(176, 176, 176);
+  }
+  
+  #button-1 .checkbox:checked + .knobs:before {
+    content: "P";
+    top: 18px;
+    background-color: #202122;
+  }
+  
+  #button-1 .checkbox:checked ~ .layer {
+    background-color: rgb(255, 255, 255);
+  }
+  
+  #button-1 .knobs,
+  #button-1 .knobs:before,
+  #button-1 .layer {
+    transition: 0.3s ease all;
+  }
+  
+  
+  
+  @media only screen and (max-width: 550px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+      grid-template-areas:
+        "content1"
+        "content2"
+        "content4";
+  
+    }
+  }
+  
+  
+  
+
+
+
+  
