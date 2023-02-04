@@ -1,18 +1,14 @@
 let zplanecanvas = document.getElementById("zplanecanvas");
 let ctxzplane = zplanecanvas.getContext("2d");
 
+
 let type = "zeros";
-let hittype;
-let magnitude;
-let angle;
-let w;
+let hittype='';
 let zerosvalues;
 let polesvalues;
 let hit;
-let allpassfilterszeros = [];
-let allpassfilterspoles = [];
-let slidervalue = 10;
-let signalIterator = 0;
+
+
 let $canvas = $("#zplanecanvas");
 let canvasOffset = $canvas.offset();
 let offsetX = canvasOffset.left;
@@ -20,8 +16,7 @@ let offsetY = canvasOffset.top;
 let cw = zplanecanvas.width;
 let ch = zplanecanvas.height;
 
-drawReposne([], [], "content2", 'Magnitude Response');
-drawReposne([], [], "content4",  'Phase Response');
+
 
 // flag to indicate a drag is in process
 // and the last XY position that has already been processed
@@ -41,36 +36,20 @@ function getvalues(element) {
   return ([((element[0] - 150) / 100), (-(element[1] - 150) / 100)])
 }
 
-function drawReposne(w, u,  div, label) {
-  let trace = {
-    x: w,
-    y: u,
-    type: 'scatter',
-    name: label
-  };
-  let data = [trace];
-
-  let layout = {
-    grid: {
-      rows: 1,
-      columns: 1,
-      pattern: 'independent'
-    },
-  };
-
-  Plotly.newPlot(div, data, layout);
-
-}
 
 drawPlane(ctxzplane);
 
 function drawPlane(context) {
   context.beginPath();
   context.arc(150, 150, 100, 0, 2 * Math.PI);
+  context.strokeStyle = '#000000';
   context.stroke();
+
   context.moveTo(10, 150);
   context.lineTo(290, 150);
+  context.strokeStyle = '#000000';
   context.stroke();
+
   context.moveTo(150, 10);
   context.lineTo(150, 290);
   context.strokeStyle = '#000000';
@@ -80,10 +59,7 @@ function drawPlane(context) {
 
 
 
-
-
-
-function drawAll(context, allzeros, allpoles, color) {
+function drawAll(context, allzeros, allpoles,color) {
 
 
 
@@ -91,10 +67,10 @@ function drawAll(context, allzeros, allpoles, color) {
   for (let i = 0; i < allzeros.length; i++) {
     let zero = allzeros[i];
     context.beginPath();
-    context.strokeStyle = color;
+    context.strokeStyle = '#5FD068';
     context.arc(zero[0], zero[1], 6, 0, PI2);
-    if (hittype == 'zeros' && i == hit) {
-      context.strokeStyle = '#2ebf91';
+    if (hittype == 'zeros' && i == hit ) {
+      context.strokeStyle = '#DC0000' ;
 
     }
     context.stroke();
@@ -111,9 +87,9 @@ function drawAll(context, allzeros, allpoles, color) {
     context.lineTo(x - 6 / Math.sqrt(2), y - 6 / Math.sqrt(2));
     context.moveTo(x + 6 / Math.sqrt(2), y - 6 / Math.sqrt(2));
     context.lineTo(x - 6 / Math.sqrt(2), y + 6 / Math.sqrt(2));
-    context.strokeStyle = color;
+    context.strokeStyle = '#590696';
     if (hittype != 'zeros' && i == hit) {
-      context.strokeStyle = '#ff0000';
+      context.strokeStyle ='#DC0000' ;
     }
     context.stroke();
     context.closePath();
@@ -225,6 +201,7 @@ function handleMouseMove(e) {
         
     }
 
+    
   // change the target circles position by the
   // distance the mouse has moved since the last
   // mousemove event
@@ -236,37 +213,6 @@ function handleMouseMove(e) {
 
 }
 
-function getSignals() {
-  arr = [signalIterator, slidervalue];
-  data = JSON.stringify(arr);
-  $.ajax({
-    url: '/getSignals',
-    type: 'post',
-    contentType: 'application/json',
-    dataType: 'json',
-    data: data,
-    success: function(response) {
-      xData = response.xAxisData;
-      yData = response.yAxisData;
-      filtered = response.filter;
-      length = response.datalength;
-      signalIterator = signalIterator + 1;
-      drawReposne(xData, filtered, 'content2', 'signal');
-      drawReposne(xData, filtered, 'content4','filtered Signal');
-
-      if (signalIterator * slidervalue < length) {
-        setTimeout(getSignals, slidervalue * 10);
-      }
-    }
-  });
-}
-
-function sliderValue() {
-  oldmult = signalIterator * slidervalue;
-  x = document.getElementById("sliderChunks");
-  slidervalue = x.value;
-  signalIterator = parseInt(oldmult / slidervalue);
-}
 
 function sendzeros() {
   zerosvalues = zeros.map(getvalues);
@@ -297,8 +243,8 @@ function updateRespose() {
   sendzeros();
   sendpoles();
   ctxzplane.clearRect(0, 0, cw, ch);
-  drawAll(ctxzplane, zeros, poles, '#0000FF');
-  drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles, '#91b233')
+  drawAll(ctxzplane, zeros, poles);
+  drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles)
 
 
   $.ajax({
@@ -306,41 +252,15 @@ function updateRespose() {
     type: 'get',
     success: function(response) {
       data = response;
-      magnitude = data.magnitude;
-      w = data.w;
-      angle = data.angle;
-      drawReposne(w, magnitude, 'content2', 'magnitude');
-      drawReposne(w, angle, 'content4', 'angle');
-
       ctxzplane.clearRect(0, 0, cw, ch);
-      drawAll(ctxzplane, zeros, poles, '#0000FF');
-      drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles, '#91b233')
+      drawAll(ctxzplane, zeros, poles);
+      drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles)
     }
   });
 }
 
-// const inputElement = document.getElementById("signalFile");
-// inputElement.addEventListener("change", handleFiles, true);
-
-// function handleFiles() {
-//   var path = inputElement.value.split("\\"); /* now you can work with the file list */
-//   sendPath = JSON.stringify(path.at(-1));
-//   $.ajax({
-//     url: '/getData',
-//     type: 'post',
-//     contentType: 'application/json',
-//     dataType: 'json',
-//     data: sendPath,
-//     success: function() {
-//       console.log(signalIterator);
-//       getSignals();
-//     }
-//   })
-// }
 
 
-
-//youssef
 //Responsible for deleting of a specific zero or pole
 function deleteFreq() {
   getFrequencyArray().splice(hit, 1);
@@ -364,18 +284,7 @@ function clearAll() {
   updateRespose();
 }
 
-//Used to add a conjugate
-function addConjugate() {
-  temp = getFrequencyArray()[hit];
-  if (temp[1] > 150) {
-    temp = [temp[0], temp[1] - 2 * (150 - temp[1])];
-  } else {
-    temp = [temp[0], temp[1] + 2 * (150 - temp[1])];
-  }
-  getFrequencyArray().push([temp[0], (temp[1])]);
-  ctxzplane.clearRect(0, 0, cw, ch);
-  updateRespose();
-}
+
 
 
 // Call this function to know whether you want the zeros or poles array of objects AND RETURNS IT
@@ -386,12 +295,6 @@ function getFrequencyArray() {
     return poles;
   }
 }
-
-
-
-
-
-
 
 
 // listen for mouse events
@@ -409,8 +312,7 @@ document
   });
 document.getElementById("zplanecanvas").addEventListener("mouseup", function(e) {
   handleMouseUp(e);
-  drawReposne(w, magnitude, 'content2', 'magnitude');
-  drawReposne(w, angle, 'content4', 'angle');
+
 
 
 });
@@ -433,6 +335,7 @@ document.addEventListener("change", function(e) {
 
 document.addEventListener("dblclick", function(e) {
    deleteFreq();
+   
   
 });  
 
