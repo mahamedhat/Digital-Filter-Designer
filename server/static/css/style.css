@@ -5,6 +5,7 @@
     --clr-graylight: #cfd8dc;
     --clr-graymed: #90a4ae;
     --radius: 20px;
+
     --animation-curve: cubic-bezier(0.34, 1.36, 0.2, 1);
   }
   
@@ -43,7 +44,7 @@ p{
   grid-template-columns: 0.2fr 1fr 0.1fr 1fr 1fr;
   grid-template-areas:
     " zplane controls-bar magres phaseres "
-    " signal controls-bar  magres phaseres ";
+    " signal controls-bar inputGraph outputGraph ";
   grid-gap: 1rem;
   font-weight: 800;
   font-size: 18px;
@@ -91,6 +92,16 @@ p{
 #phaseres {
   width: 540px;
   grid-area: phaseres;
+}
+
+#inputGraph{
+  width: 540px;
+  grid-area: inputGraph;
+}
+
+#outputGraph{
+  width: 540px;
+  grid-area: outputGraph;
 }
 
 
@@ -305,7 +316,9 @@ label {
       "controls-bar"
       "signal"
       "magres"
-      "phaseres";
+      "phaseres"
+      "inputGraph"
+      "outputGraph";
 
   } 
   }
