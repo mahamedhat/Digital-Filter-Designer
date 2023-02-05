@@ -201,6 +201,7 @@ function drawResponse(){
   magResponse = [];
   phaseResponse = [];
 
+
   for(let i = 0; i < 50 ; i++){
       let magPoint = math.complex(1,0); // Initial value (1+0j)
       let phasePoint = math.complex(1,0); // Initial value (1+0j)
@@ -361,34 +362,8 @@ function handleMouseMove(e) {
 }
 
 
-function sendzeros() {
-  zerosvalues = zeros.map(getvalues);
-  let js_zeros = JSON.stringify(zerosvalues);
-  $.ajax({
-    url: '/getzeros',
-    type: 'post',
-    contentType: 'application/json',
-    dataType: 'json',
-    data: js_zeros
-  });
-}
-
-function sendpoles() {
-  polesvalues = poles.map(getvalues)
-  let js_poles = JSON.stringify(polesvalues);
-
-  $.ajax({
-    url: '/getpoles',
-    type: 'post',
-    contentType: 'application/json',
-    dataType: 'json',
-    data: js_poles
-  });
-}
-
 function updateRespose() {
-  sendzeros();
-  sendpoles();
+
   ctxzplane.clearRect(0, 0, cw, ch);
   drawAll(ctxzplane, zeros, poles);
   drawResponse();

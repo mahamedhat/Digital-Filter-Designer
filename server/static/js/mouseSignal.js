@@ -26,7 +26,7 @@ let t = 0
 let mouse_move = (event)=> {
     let mouseX = parseInt(event.clientX - offset_x - 150);
     let mouseY = -1*parseInt(event.clientY - offset_y - 150);
-    console.log(mouseX)
+    // console.log(mouseX)
     Plotly.extendTraces(inputGraph, {y:[[mouseX]], x:[[t]]}, [0])
     t+=0.02
     range = {range:[t-4.5, t+0.5]}
