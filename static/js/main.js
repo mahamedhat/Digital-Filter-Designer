@@ -33,7 +33,7 @@ let poles = [];
 let draggingelement = -1;
 
 function getvalues(element) {
-  return ([((element[0] - 150) / 100), (-(element[1] - 150) / 100)])
+  return ([((element[0] - 150) / 100), (( 150-element[1]) / 100)])
 }
 
 
@@ -96,6 +96,158 @@ function drawAll(context, allzeros, allpoles) {
   }
 }
 
+
+// Plot for responses
+class Plot {
+    constructor(w, h) {
+        this.width = w;
+        this.height = h;
+    }
+
+    plot = (x1, y1, x2, y2, label1, label2) => {
+        this.freq = d3.select("#magres").append("div")
+            .attr("id", "freqResp")
+            .attr("style",`position: relative;margin: auto;height: ${this.height}px; width:530px` )
+        this.canvas = d3.select("#freqResp").append("canvas")
+            .attr("id", "magcanvas");
+
+        this.phase = d3.select("#phaseres").append("div")
+            .attr("id", "phaseResp")
+            .attr("style",`position: relative;margin: auto;height: ${this.height}px;width:530px`)
+        this.canvas = d3.select("#phaseResp").append("canvas")
+            .attr("id", "phasecanvas");
+
+        this.ctx1 = document.getElementById('magcanvas');
+        this.ctx2 = document.getElementById('phasecanvas');
+
+        let data1 = {
+            labels: x1,
+            datasets: [{
+                label: label1,
+                data: y1,
+                fill: false,
+                borderColor: '#0081B4'
+            }]
+        }
+
+        let data2 = {
+            labels: x2,
+            datasets: [{
+                label: label2,
+                data: y2,
+                fill: false,
+                borderColor: '#03C988'
+            }]
+        }
+
+        let options = {
+            maintainAspectRatio: false,
+            animation: false,
+            scales : {
+                x : {
+                    ticks : {
+                        sampleSize : 5
+                    }
+                }
+                
+            }
+
+        }
+        var magcanvas = new Chart(this.ctx1, {
+            type: 'line',
+            options: options,
+            data: data1
+        });
+
+        var phasecanvas = new Chart(this.ctx2, {
+            type: 'line',
+            options: options,
+            data: data2
+        });
+
+        return {magcanvas , phasecanvas };
+    }
+    
+    destroy = () => {
+        d3.select("#magcanvas").remove();
+        d3.select("#freqResp").remove()
+        d3.select("#phasecanvas").remove();
+        d3.select("#phaseResp").remove()
+    }
+}
+
+
+// Draw Plot
+let plt = new Plot(520, 280);
+// update plot 
+let charts = plt.plot([], [], [], [], "Magnitude", "Phase");
+let Z = new Array(50);
+let freqAxis = new Array(50);
+
+for(let i = 0; i < 50; i++){
+    Z[i] = math.complex(Math.cos(Math.PI * (i/50)), Math.sin(Math.PI * (i/50)));
+    freqAxis[i] = (Math.PI * (i/50)).toFixed(2);
+}
+
+function inRange(num,mn,mx){
+  if (num<=mx && num>=mn) {return true;
+  }else return false;
+}
+
+
+function drawResponse(){
+    
+  plt.destroy();
+  
+  polesvalues = poles.map(getvalues);
+  zerosvalues = zeros.map(getvalues);
+
+  // console.table(polesvalues);
+  // console.table(zerosvalues);
+
+  magResponse = [];
+  phaseResponse = [];
+
+  for(let i = 0; i < 50 ; i++){
+      console.log("dakhlna");
+      let magPoint = math.complex(1,0); // Initial value (1+0j)
+      let phasePoint = math.complex(1,0); // Initial value (1+0j)
+
+      // Calc. zeros
+      for(let j = 0; j < zerosvalues.length; j++){
+          let temp = math.subtract(Z[i], math.complex(zerosvalues[j][0], zerosvalues[j][1]));
+          if(!(inRange(zerosvalues[j][0], -0.01, 0.01) && inRange(zerosvalues[j][1], -0.01, 0.01))){
+              magPoint *= temp.abs();
+          }else{
+              magPoint *= 1;
+          }
+          phasePoint *= temp.arg();
+      }
+      
+      // Calc. poles
+      for(let j = 0; j < polesvalues.length; j++){
+          let temp = math.subtract(Z[i], math.complex(polesvalues[j][0], polesvalues[j][1]));
+          if(!(inRange(polesvalues[j][0], -0.01, 0.01) && inRange(polesvalues[j][1], -0.01, 0.01))){                
+              magPoint /= temp.abs();
+          }else{
+              magPoint /= 1;
+          }
+          phasePoint /= temp.arg();
+      }
+
+      magResponse.push(magPoint);
+      phaseResponse.push(phasePoint);
+  }
+
+
+
+  console.log("gwaaa");
+
+  charts = plt.plot(freqAxis, magResponse, freqAxis, phaseResponse, "Magnitude", "Phase");
+
+
+}
+// ----------------------- Mouse Events -----------------------------------------
 
 
 function handleMouseDown(e) {
@@ -162,7 +314,6 @@ function handleMouseDown(e) {
 
 
 }
-
 
 function handleMouseUp(e) {
   // tell the browser we'll handle this event
@@ -247,6 +398,8 @@ function updateRespose() {
   sendpoles();
   ctxzplane.clearRect(0, 0, cw, ch);
   drawAll(ctxzplane, zeros, poles);
+  drawResponse();
+
   
 }
 

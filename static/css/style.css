@@ -19,7 +19,6 @@ body {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: #000000 !important;
-  box-sizing: border-box;
 }
 
 html{
@@ -43,8 +42,8 @@ p{
   height: 90vh;
   grid-template-columns: 0.2fr 1fr 0.1fr 1fr 1fr;
   grid-template-areas:
-    " zplane controls-bar magres "
-    " signal controls-bar phaseres ";
+    " zplane controls-bar magres phaseres "
+    " signal controls-bar  magres phaseres ";
   grid-gap: 1rem;
   font-weight: 800;
   font-size: 18px;
@@ -52,10 +51,10 @@ p{
   text-align: center;
   margin: 30px;
   margin-left: 15px !important;
+  margin-top: 50px;
 
 
 }
-
 
 
 
@@ -72,30 +71,25 @@ p{
   background: rgb(238, 238, 238);
   width: 300px;
   height: 300px;
-  
-}
-#zplane {
   margin-top: 20px;
 
+  
 }
+
 #signal {
-  height: 280px;
   grid-area: signal;
 
 
 }
 #magres {
-  margin-top: 20px;
-  width: 950px;
-  height: 280px;
+  width: 540px;
   grid-area: magres;
 }
 
 
 
 #phaseres {
-  width: 950px;
-  height: 280px;
+  width: 540px;
   grid-area: phaseres;
 }
 
