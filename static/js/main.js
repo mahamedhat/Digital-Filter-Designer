@@ -3,7 +3,7 @@ let ctxzplane = zplanecanvas.getContext("2d");
 
 
 let type = "zeros";
-let hittype='';
+let hittype;
 let zerosvalues;
 let polesvalues;
 let hit;
@@ -41,7 +41,7 @@ drawPlane(ctxzplane);
 
 function drawPlane(context) {
   context.beginPath();
-  context.arc(150, 150, 100, 0, 2 * Math.PI);
+  context.arc(150, 150, 100, 0, PI2);
   context.strokeStyle = '#000000';
   context.stroke();
 
@@ -59,7 +59,7 @@ function drawPlane(context) {
 
 
 
-function drawAll(context, allzeros, allpoles,color) {
+function drawAll(context, allzeros, allpoles) {
 
 
 
@@ -96,6 +96,8 @@ function drawAll(context, allzeros, allpoles,color) {
   }
 }
 
+
+
 function handleMouseDown(e) {
 
   // tell the browser we'll handle this event
@@ -106,6 +108,7 @@ function handleMouseDown(e) {
   lastX = parseInt(e.clientX - offsetX);
   lastY = parseInt(e.clientY - offsetY);
   hit = -1;
+
   // hit test all existing zeros
   for (let i = 0; i < zeros.length; i++) {
     let zero = zeros[i];
@@ -122,7 +125,7 @@ function handleMouseDown(e) {
     let pole = poles[i];
     let dx = lastX - pole[0];
     let dy = lastY - pole[1];
-    if (dx * dx + dy * dy < 6 * 6) {
+    if (dx * dx + dy * dy < 6 * 6) {  //pythagoras theorem
       hit = i;
       hittype = "poles"
 
@@ -244,19 +247,7 @@ function updateRespose() {
   sendpoles();
   ctxzplane.clearRect(0, 0, cw, ch);
   drawAll(ctxzplane, zeros, poles);
-  drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles)
-
-
-  $.ajax({
-    url: '/sendfrequencyresposedata',
-    type: 'get',
-    success: function(response) {
-      data = response;
-      ctxzplane.clearRect(0, 0, cw, ch);
-      drawAll(ctxzplane, zeros, poles);
-      drawAll(ctxzplane, allpassfilterszeros, allpassfilterspoles)
-    }
-  });
+  
 }
 
 
@@ -338,21 +329,3 @@ document.addEventListener("dblclick", function(e) {
    
   
 });  
-
-$(".side-button").click(function() {
-  if ($(this).css("right") == "0px") {
-    $(this).animate({
-      right: $('.sidebar').outerWidth()
-    }, 500);
-    $(".sidebar").animate({
-      right: "0"
-    }, 500);
-  } else {
-    $(this).animate({
-      right: "0"
-    }, 500);
-    $(".sidebar").animate({
-      right: -$('.sidebar').outerWidth()
-    }, 500);
-  }
-});

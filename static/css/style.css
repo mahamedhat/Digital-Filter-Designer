@@ -19,6 +19,7 @@ body {
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   background-color: #000000 !important;
+  box-sizing: border-box;
 }
 
 html{
@@ -51,6 +52,7 @@ p{
   text-align: center;
   margin: 30px;
   margin-left: 15px !important;
+
 
 }
 
