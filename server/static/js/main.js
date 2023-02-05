@@ -105,16 +105,11 @@ class Plot {
     }
 
     plot = (x1, y1, x2, y2, label1, label2) => {
-        this.freq = d3.select("#magres").append("div")
-            .attr("id", "freqResp")
-            .attr("style",`position: relative;margin: auto;height: ${this.height}px; width:530px` )
-        this.canvas = d3.select("#freqResp").append("canvas")
+
+         d3.select("#magres").append("canvas")
             .attr("id", "magcanvas");
 
-        this.phase = d3.select("#phaseres").append("div")
-            .attr("id", "phaseResp")
-            .attr("style",`position: relative;margin: auto;height: ${this.height}px;width:530px`)
-        this.canvas = d3.select("#phaseResp").append("canvas")
+        d3.select("#phaseres").append("canvas")
             .attr("id", "phasecanvas");
 
         this.ctx1 = document.getElementById('magcanvas');
@@ -165,14 +160,12 @@ class Plot {
             data: data2
         });
 
-        return {magcanvas , phasecanvas };
+        return {magcanvas , phasecanvas};
     }
     
     destroy = () => {
         d3.select("#magcanvas").remove();
-        d3.select("#freqResp").remove()
         d3.select("#phasecanvas").remove();
-        d3.select("#phaseResp").remove()
     }
 }
 
@@ -209,7 +202,6 @@ function drawResponse(){
   phaseResponse = [];
 
   for(let i = 0; i < 50 ; i++){
-      console.log("dakhlna");
       let magPoint = math.complex(1,0); // Initial value (1+0j)
       let phasePoint = math.complex(1,0); // Initial value (1+0j)
 
@@ -241,7 +233,7 @@ function drawResponse(){
 
 
 
-  console.log("gwaaa");
+  
 
   charts = plt.plot(freqAxis, magResponse, freqAxis, phaseResponse, "Magnitude", "Phase");
 
@@ -346,6 +338,7 @@ function handleMouseMove(e) {
   // reset the lastX/Y to the current mouse position
   lastX = mouseX;
   lastY = mouseY;
+
   if(hittype=="zeros"){
     zeros[hit][0]=lastX;
     zeros[hit][1]=lastY;
@@ -477,8 +470,14 @@ document.addEventListener("change", function(e) {
 
   })
 
-document.addEventListener("dblclick", function(e) {
-   deleteFreq();
-   
-  
-});  
+
+
+
+function del(e){
+  if(e.keyCode === 100 && hit!=-1){
+      e.preventDefault(); // Ensure it is only this code that runs
+      deleteFreq();
+
+
+  }
+}
