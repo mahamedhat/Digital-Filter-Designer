@@ -20,7 +20,9 @@ class DigitalFilter:
         return w, h_mag, h_phase     
         
     def applyFilter(self, input_signal):
+        if self.filterOrder<1 :
+            return input_signal
         
-        output_signal = signal.filtfilt(self.b, self.a, input_signal)
+        output_signal = signal.filtfilt(self.b, self.a, input_signal, padlen = 5)
         return output_signal
         

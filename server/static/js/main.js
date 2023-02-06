@@ -192,45 +192,45 @@ function drawResponse(w, h_mag, h_phase){
     
   plt.destroy();
   
-  polesvalues = poles.map(getvalues);
-  zerosvalues = zeros.map(getvalues);
+  // polesvalues = poles.map(getvalues);
+  // zerosvalues = zeros.map(getvalues);
 
-  // console.table(polesvalues);
-  // console.table(zerosvalues);
+  // // console.table(polesvalues);
+  // // console.table(zerosvalues);
 
-  magResponse = [];
-  phaseResponse = [];
+  // magResponse = [];
+  // phaseResponse = [];
 
 
-  for(let i = 0; i < 50 ; i++){
-      let magPoint = math.complex(1,0); // Initial value (1+0j)
-      let phasePoint = math.complex(1,0); // Initial value (1+0j)
+  // for(let i = 0; i < 50 ; i++){
+  //     let magPoint = math.complex(1,0); // Initial value (1+0j)
+  //     let phasePoint = math.complex(1,0); // Initial value (1+0j)
 
-      // Calc. zeros
-      for(let j = 0; j < zerosvalues.length; j++){
-          let temp = math.subtract(Z[i], math.complex(zerosvalues[j][0], zerosvalues[j][1]));
-          if(!(inRange(zerosvalues[j][0], -0.01, 0.01) && inRange(zerosvalues[j][1], -0.01, 0.01))){
-              magPoint *= temp.abs();
-          }else{
-              magPoint *= 1;
-          }
-          phasePoint *= temp.arg();
-      }
+  //     // Calc. zeros
+  //     for(let j = 0; j < zerosvalues.length; j++){
+  //         let temp = math.subtract(Z[i], math.complex(zerosvalues[j][0], zerosvalues[j][1]));
+  //         if(!(inRange(zerosvalues[j][0], -0.01, 0.01) && inRange(zerosvalues[j][1], -0.01, 0.01))){
+  //             magPoint *= temp.abs();
+  //         }else{
+  //             magPoint *= 1;
+  //         }
+  //         phasePoint *= temp.arg();
+  //     }
       
-      // Calc. poles
-      for(let j = 0; j < polesvalues.length; j++){
-          let temp = math.subtract(Z[i], math.complex(polesvalues[j][0], polesvalues[j][1]));
-          if(!(inRange(polesvalues[j][0], -0.01, 0.01) && inRange(polesvalues[j][1], -0.01, 0.01))){                
-              magPoint /= temp.abs();
-          }else{
-              magPoint /= 1;
-          }
-          phasePoint /= temp.arg();
-      }
+  //     // Calc. poles
+  //     for(let j = 0; j < polesvalues.length; j++){
+  //         let temp = math.subtract(Z[i], math.complex(polesvalues[j][0], polesvalues[j][1]));
+  //         if(!(inRange(polesvalues[j][0], -0.01, 0.01) && inRange(polesvalues[j][1], -0.01, 0.01))){                
+  //             magPoint /= temp.abs();
+  //         }else{
+  //             magPoint /= 1;
+  //         }
+  //         phasePoint /= temp.arg();
+  //     }
 
-      magResponse.push(magPoint);
-      phaseResponse.push(phasePoint);
-  }
+  //     magResponse.push(magPoint);
+  //     phaseResponse.push(phasePoint);
+  // }
 
 
 
