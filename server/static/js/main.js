@@ -172,15 +172,9 @@ class Plot {
 
 // Draw Plot
 let plt = new Plot(520, 280);
-// update plot 
 let charts = plt.plot([], [], [], [], "Magnitude", "Phase");
-let Z = new Array(50);
-let freqAxis = new Array(50);
 
-for(let i = 0; i < 50; i++){
-    Z[i] = math.complex(Math.cos(Math.PI * (i/50)), Math.sin(Math.PI * (i/50)));
-    freqAxis[i] = (Math.PI * (i/50)).toFixed(2);
-}
+
 
 function inRange(num,mn,mx){
   if (num<=mx && num>=mn) {return true;
@@ -191,53 +185,7 @@ function inRange(num,mn,mx){
 function drawResponse(w, h_mag, h_phase){
     
   plt.destroy();
-  
-  // polesvalues = poles.map(getvalues);
-  // zerosvalues = zeros.map(getvalues);
-
-  // // console.table(polesvalues);
-  // // console.table(zerosvalues);
-
-  // magResponse = [];
-  // phaseResponse = [];
-
-
-  // for(let i = 0; i < 50 ; i++){
-  //     let magPoint = math.complex(1,0); // Initial value (1+0j)
-  //     let phasePoint = math.complex(1,0); // Initial value (1+0j)
-
-  //     // Calc. zeros
-  //     for(let j = 0; j < zerosvalues.length; j++){
-  //         let temp = math.subtract(Z[i], math.complex(zerosvalues[j][0], zerosvalues[j][1]));
-  //         if(!(inRange(zerosvalues[j][0], -0.01, 0.01) && inRange(zerosvalues[j][1], -0.01, 0.01))){
-  //             magPoint *= temp.abs();
-  //         }else{
-  //             magPoint *= 1;
-  //         }
-  //         phasePoint *= temp.arg();
-  //     }
-      
-  //     // Calc. poles
-  //     for(let j = 0; j < polesvalues.length; j++){
-  //         let temp = math.subtract(Z[i], math.complex(polesvalues[j][0], polesvalues[j][1]));
-  //         if(!(inRange(polesvalues[j][0], -0.01, 0.01) && inRange(polesvalues[j][1], -0.01, 0.01))){                
-  //             magPoint /= temp.abs();
-  //         }else{
-  //             magPoint /= 1;
-  //         }
-  //         phasePoint /= temp.arg();
-  //     }
-
-  //     magResponse.push(magPoint);
-  //     phaseResponse.push(phasePoint);
-  // }
-
-
-
-  
-
   charts = plt.plot(w, h_mag, w, h_phase, "Magnitude", "Phase");
-
 
 }
 // ----------------------- Mouse Events -----------------------------------------
