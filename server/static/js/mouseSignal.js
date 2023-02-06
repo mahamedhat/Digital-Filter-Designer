@@ -3,13 +3,13 @@ let inputCanvas = document.getElementById('mouseInput')
 let context = inputCanvas.getContext('2d');
 
 context.beginPath();
-context.moveTo(0, 150);
-context.lineTo(300, 150);
+context.moveTo(10, 150);
+context.lineTo(290, 150);
 context.stroke();
 
 context.beginPath();
-context.moveTo(150, 0);
-context.lineTo(150, 300);
+context.moveTo(150, 10);
+context.lineTo(150, 290);
 context.stroke();
 let get_offset = ()=> {
 

@@ -188,7 +188,7 @@ function inRange(num,mn,mx){
 }
 
 
-function drawResponse(){
+function drawResponse(w, h_mag, h_phase){
     
   plt.destroy();
   
@@ -236,7 +236,7 @@ function drawResponse(){
 
   
 
-  charts = plt.plot(freqAxis, magResponse, freqAxis, phaseResponse, "Magnitude", "Phase");
+  charts = plt.plot(w, h_mag, w, h_phase, "Magnitude", "Phase");
 
 
 }
@@ -361,12 +361,31 @@ function handleMouseMove(e) {
 
 }
 
-
+let w, y_mag, y_phase
 function updateRespose() {
 
   ctxzplane.clearRect(0, 0, cw, ch);
   drawAll(ctxzplane, zeros, poles);
-  drawResponse();
+  polesvalues = poles.map(getvalues);
+  zerosvalues = zeros.map(getvalues);
+  $.ajax({
+    type: 'POST',
+    url: 'http://127.0.0.1:5000//digitalFilter',
+    data: JSON.stringify({zerosvalues, polesvalues}),
+    cache: false,
+    dataType: 'json',
+    async: false,
+    contentType: 'application/json',
+    processData: false,
+    success: function(data) {
+      w = data[0];
+      y_mag = data[1];
+      y_phase = data[2];
+      console.log(w)
+    },
+});
+
+  drawResponse(w, y_mag, y_phase);
 
   
 }

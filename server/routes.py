@@ -8,14 +8,14 @@ signal = []
 def digitalFilter():
     
     jsonData = request.get_json()
-    z = jsonData['z']
-    p = jsonData['p']
+    z = jsonData['zerosvalues']
+    p = jsonData['polesvalues']
     z = [complex(x[0], x[1]) for x in z]
     p = [complex(x[0], x[1]) for x in p]
     Dfilter = DigitalFilter(z, p, 1)
     w, h_mag, h_phase = Dfilter.filterResponse()
     
-    return [w.tolist(), h_mag.tolist(), h_phase.tolist()] 
+    return [w, h_mag.tolist(), h_phase.tolist()] 
 
 
 @app.route('/applyFilter', methods=['POST'])
