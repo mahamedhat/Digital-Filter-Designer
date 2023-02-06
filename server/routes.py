@@ -1,5 +1,7 @@
 from server.filter import DigitalFilter
 from server import app
+from flask import request
+
 
 signal = []
 @app.route('/digitalFilter', methods=['POST'])
