@@ -1,7 +1,7 @@
 from scipy import signal
 import numpy as np
 
-class DigitalFilter:
+class  DigitalFilter:
     
     def __init__(self, z, p, k):
         

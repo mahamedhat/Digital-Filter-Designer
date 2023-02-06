@@ -9071,12 +9071,12 @@ class PointElement extends Element {
 }
 PointElement.id = 'point';
 PointElement.defaults = {
-  borderWidth: 1,
-  hitRadius: 1,
-  hoverBorderWidth: 1,
-  hoverRadius: 4,
+  borderWidth: 0,
+  hitRadius: 0,
+  hoverBorderWidth: 0,
+  hoverRadius: 0,
   pointStyle: 'circle',
-  radius: 3,
+  radius: 0,
   rotation: 0
 };
 PointElement.defaultRoutes = {
