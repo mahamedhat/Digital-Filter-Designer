@@ -23,6 +23,6 @@ class DigitalFilter:
         if self.filterOrder<1 :
             return input_signal
         
-        output_signal = signal.filtfilt(self.b, self.a, input_signal, padlen = 5)
+        output_signal = signal.lfilter(self.b, self.a, input_signal)
         return output_signal
         
