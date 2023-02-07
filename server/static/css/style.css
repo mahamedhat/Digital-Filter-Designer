@@ -112,7 +112,12 @@ p{
   width: 540px;
   grid-area: outputGraph;
 }
+.apfres{
+  grid-area: apfres;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: " filteredphaseres";
 
+}
 
 
 /*** Canvas inside boxes ***/
@@ -376,8 +381,9 @@ label {
 .overlay-content {
   display: grid;
   height: 90vh;
+  grid-template-rows: 1.3fr 1fr;
   grid-template-areas:
-    " filteredphaseres "
+   "apfres "
    "slidercontainer";
   
   grid-gap: 1rem;
