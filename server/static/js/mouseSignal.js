@@ -22,8 +22,8 @@ let get_offset = ()=> {
 }
 let [offset_x, offset_y] = get_offset()
 let layout = {xaxis:{range:[0,5]}}
-Plotly.plot(inputGraph, [{y:[],x:[], type:'line'}], layout)
-Plotly.plot(outputGraph, [{y:[],x:[], type:'line'}], layout)
+Plotly.plot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Generated signal"})
+Plotly.plot(outputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Filtered signal"})
 let t = 0
 let mouse_move = (event)=> {
     let mouseX = parseInt(event.clientX - offset_x - 150);
@@ -34,7 +34,7 @@ let mouse_move = (event)=> {
     Plotly.extendTraces(outputGraph, {y:[[filtered_point]], x:[[t]]}, [0])
     t+=0.02
     range = {range:[t-4.5, t+0.5]}
-    layout['xaxis']= range
+     layout['xaxis']= range
     if(t>5){
         Plotly.relayout(inputGraph, layout)
         Plotly.relayout(outputGraph, layout)

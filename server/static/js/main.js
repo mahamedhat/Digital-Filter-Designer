@@ -111,9 +111,12 @@ class Plot {
 
         d3.select("#phaseres").append("canvas")
             .attr("id", "phasecanvas");
-
+        d3.select("#filteredphaseres").append("canvas")
+        .attr("id", "filteredphasecanvas");
         this.ctx1 = document.getElementById('magcanvas');
         this.ctx2 = document.getElementById('phasecanvas');
+        this.ctx3 = document.getElementById('filteredphasecanvas');
+
 
         let data1 = {
             labels: x1,
@@ -121,7 +124,7 @@ class Plot {
                 label: label1,
                 data: y1,
                 fill: false,
-                borderColor: '#0081B4'
+                borderColor: '#03C988'
             }]
         }
 
@@ -131,9 +134,18 @@ class Plot {
                 label: label2,
                 data: y2,
                 fill: false,
-                borderColor: '#03C988'
+                borderColor: '#007aff'
             }]
         }
+        let data3 = {
+          labels: x2,
+          datasets: [{
+              label: label2,
+              data: y2,
+              fill: false,
+              borderColor: '#007aff'
+          }]
+      }
 
         let options = {
             maintainAspectRatio: false,
@@ -159,13 +171,20 @@ class Plot {
             options: options,
             data: data2
         });
+        let filteredphasecanvas = new Chart(this.ctx3, {
+          type: 'line',
+          options: options,
+          data: data3
+      });
 
-        return {magcanvas , phasecanvas};
+        return {magcanvas , phasecanvas,filteredphasecanvas};
     }
     
     destroy = () => {
         d3.select("#magcanvas").remove();
         d3.select("#phasecanvas").remove();
+        d3.select("#filteredphasecanvas").remove();
+
     }
 }
 
@@ -314,8 +333,10 @@ function updateRespose() {
 
   ctxzplane.clearRect(0, 0, cw, ch);
   drawAll(ctxzplane, zeros, poles);
+
   polesvalues = poles.map(getvalues);
   zerosvalues = zeros.map(getvalues);
+
   $.ajax({
     type: 'POST',
     url: 'http://127.0.0.1:5000//digitalFilter',
@@ -378,6 +399,17 @@ function getFrequencyArray() {
   }
 }
 
+
+function applyAPF(a){
+  sq= a[0]*a[0]+a[1]*a[1];
+  poles.push([(a[0]*100 + 150),(150 - a[1]*100)]);
+  real = a[0] / sq ;
+  imj =  a[1] / sq ;
+  zeros.push([(real*100 + 150),(150 - imj*100)]);
+  updateRespose();
+
+    
+}
 
 // listen for mouse events
 

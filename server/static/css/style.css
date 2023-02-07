@@ -93,6 +93,15 @@ p{
   width: 540px;
   grid-area: phaseres;
 }
+#filteredphaseres {
+  width: 450px !important;
+  height: 250px;
+  grid-area: filteredphaseres;
+  margin-left: 10px;
+
+
+
+}
 
 #inputGraph{
   width: 540px;
@@ -103,7 +112,12 @@ p{
   width: 540px;
   grid-area: outputGraph;
 }
+.apfres{
+  grid-area: apfres;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: " filteredphaseres";
 
+}
 
 
 /*** Canvas inside boxes ***/
@@ -300,7 +314,7 @@ label {
 
 #ctxmenu {
   position: fixed;
-  background:  rgb(238, 238, 238);;
+  background:  rgb(238, 238, 238);
   color: black;
   cursor: pointer;
   border: 1px black solid
@@ -318,13 +332,17 @@ label {
 .navbar-top {
   background: #fcfdff;
   padding: 0 10px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #000000;
+  /* padding-bottom: 10px; */
+  border-bottom: 2px rgb(176, 176, 176);
   }
   
   nav .nav-link {
   color: rgb(0, 0, 0) !important;
   }
+  nav .nav-link:hover {
+    background: rgb(0, 0, 0) !important;
+    color: white !important;
+    }
   
   *, ::after, ::before {
     box-sizing: unset !important;
@@ -347,7 +365,122 @@ label {
   }
 
 
+.overlay {
+  height: 0%;
+  width: 100%;
+  position: fixed;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  display: grid;
+  height: 90vh;
+  grid-template-rows: 1.3fr 1fr;
+  grid-template-areas:
+   "apfres "
+   "slidercontainer";
+  
+  grid-gap: 1rem;
+  margin-top: 50px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay {overflow-y: auto;}
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
 
 
 
 
+
+
+.slidercontainer{max-width: 1350px;margin-bottom:20px; margin-left: 40px;  grid-area: slidercontainer; 
+}
+.swiper_wrap{padding:0px 50px;height:100%;width: 100%;position: relative;display: block;text-align: center;}
+
+.swiper-button-next{
+margin-top: 0px;
+position: absolute;
+top: 50%;
+right: -40px;
+width: 45px;
+height: 45px;
+transform: translateY(-50%);
+}
+.swiper-button-prev{
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  width: 45px;
+  height: 45px;
+  transform: translateY(-50%);
+  margin-top: 0px;
+}
+
+.swiper-slide{
+  width: 350px !important;
+  height: 180px !important;
+  background-color: rgb(238, 238, 238);
+  border-radius: 10px;
+
+}
+.swiper-slide:hover{
+  border:solid #007aff;
+  
+
+}
+.swiper-slide:hover .avalue{
+  opacity: 1;  
+
+}
+img {
+  width: 350px;
+  height: 180px;
+}
+
+
+.avalue {
+  position: absolute; 
+  bottom: 0; 
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1; 
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
