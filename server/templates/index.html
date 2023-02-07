@@ -48,7 +48,25 @@
     <a href="javascript:void(0)" class="closebtn" onclick="closetab()">&times;</a>
     <div class="overlay-content">
         <div class="apfres">
+            <div id="form">
+                <form class="login-form"  action="javascript:void(0);">
+                    <h1> a </h1>
+                    <div class="form-input-material">
+                    <input type="text"  id="real" name="real" placeholder="Real" autocomplete="off" class="form-control-material" required />
+                    </div>
+                    <div class="form-input-material">
+                    <input type="text"  id="imaginary" name="imaginary" placeholder="Imaginary" autocomplete="off" class="form-control-material" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-ghost" id="formbtn" onclick="review()">Review</button>
+                    <button type="submit" class="btn btn-primary btn-ghost" id="formbtn" onclick="addItem([],1)">Apply</button>
+                </form>
+            </div>
+
             <div class="content" id="filteredphaseres"></div>
+            <div id="apflist">
+                <ul id="list"></ul>
+            </div>
+
             
         </div>
 
@@ -61,35 +79,35 @@
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide" id="phase1">
-                                    <img src="..\static\assests\apfphase/(a = 1+1j).png" onclick="applyAPF([1,1])">
+                                    <img src="..\static\assests\apfphase/(a = 1+1j).png" onclick="addItem([1,1],0)">
                                     <div class="avalue">a = 1 + j 1</div>
                                 </div>
                                 <div class="swiper-slide" id="phase2">
-                                    <img src="..\static\assests\apfphase/(a = 0.1).png "onclick="applyAPF([0.1,0])">
+                                    <img src="..\static\assests\apfphase/(a = 0.1).png "onclick="addItem([0.1,0],0)">
                                     <div class="avalue">a = 0.1 </div>
 
 
                                 </div>
                                 <div class="swiper-slide" id="phase3" >
-                                    <img src="..\static\assests\apfphase/(a = 0.5).png" onclick="applyAPF([0.5,0])">
+                                    <img src="..\static\assests\apfphase/(a = 0.5).png" onclick="addItem([0.5,0],0)">
                                     <div class="avalue">a = 0.5</div>
 
                                    
                                 </div>
                                 <div class="swiper-slide" id="phase4">
-                                    <img src="..\static\assests\apfphase/(a = 0.9).png" onclick="applyAPF([0.9,0])">
+                                    <img src="..\static\assests\apfphase/(a = 0.9).png" onclick="addItem([0.9,0] , 0)">
                                     <div class="avalue">a = 0.9</div>
 
 
                                 </div>
                                 <div class="swiper-slide" id="phase5">
-                                    <img src="..\static\assests\apfphase/(a = -0.5).png" onclick="applyAPF([-0.5,0])">
+                                    <img src="..\static\assests\apfphase/(a = -0.5).png" onclick="addItem([-0.5,0],0)">
                                     <div class="avalue">a = -0.5</div>
 
 
                                 </div>
                                 <div class="swiper-slide"id="phase6">
-                                    <img src="..\static\assests\apfphase/(a = -0.9).png" onclick="applyAPF([-0.9,0])">
+                                    <img src="..\static\assests\apfphase/(a = -0.9).png" onclick="addItem([-0.9,0],0)">
                                     <div class="avalue">a = -0.9</div>
                                 </div>
                                

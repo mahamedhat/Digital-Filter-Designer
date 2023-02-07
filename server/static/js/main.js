@@ -7,6 +7,8 @@ let hittype;
 let zerosvalues;
 let polesvalues;
 let hit;
+let apfzeros=[];
+let apfpoles=[];
 
 
 let $canvas = $("#zplanecanvas");
@@ -34,6 +36,9 @@ let draggingelement = -1;
 
 function getvalues(element) {
   return ([((element[0] - 150) / 100), (( 150-element[1]) / 100)])
+}
+function denormalize(a,b) {
+  return [(150 + 100 * a), ( 150 - 100 * b)]
 }
 
 
@@ -104,6 +109,44 @@ class Plot {
         this.height = h;
     }
 
+
+    apfplot = (x , y) =>{
+
+
+      d3.select("#filteredphaseres").append("canvas")
+      .attr("id", "filteredphasecanvas");
+
+      this.ctx3 = document.getElementById('filteredphasecanvas');
+
+      let data3 = {
+        labels: x,
+        datasets: [{
+            label: "APF phase",
+            data: y,
+            fill: false,
+            borderColor: '#007aff'
+        }]}
+
+      let options = {
+          maintainAspectRatio: false,
+          animation: false,
+          scales : {
+              x : {
+                  ticks : {
+                      sampleSize : 5
+                  }
+              }
+              
+          }
+
+      }
+      let filteredphasecanvas = new Chart(this.ctx3, {
+        type: 'line',
+        options: options,
+        data: data3});
+    return {filteredphasecanvas};
+    }
+
     plot = (x1, y1, x2, y2, label1, label2) => {
 
          d3.select("#magres").append("canvas")
@@ -111,11 +154,9 @@ class Plot {
 
         d3.select("#phaseres").append("canvas")
             .attr("id", "phasecanvas");
-        d3.select("#filteredphaseres").append("canvas")
-        .attr("id", "filteredphasecanvas");
+
         this.ctx1 = document.getElementById('magcanvas');
         this.ctx2 = document.getElementById('phasecanvas');
-        this.ctx3 = document.getElementById('filteredphasecanvas');
 
 
         let data1 = {
@@ -137,15 +178,7 @@ class Plot {
                 borderColor: '#007aff'
             }]
         }
-        let data3 = {
-          labels: x2,
-          datasets: [{
-              label: label2,
-              data: y2,
-              fill: false,
-              borderColor: '#007aff'
-          }]
-      }
+
 
         let options = {
             maintainAspectRatio: false,
@@ -171,27 +204,27 @@ class Plot {
             options: options,
             data: data2
         });
-        let filteredphasecanvas = new Chart(this.ctx3, {
-          type: 'line',
-          options: options,
-          data: data3
-      });
 
-        return {magcanvas , phasecanvas,filteredphasecanvas};
+      
+
+        return {magcanvas , phasecanvas};
     }
     
     destroy = () => {
         d3.select("#magcanvas").remove();
         d3.select("#phasecanvas").remove();
-        d3.select("#filteredphasecanvas").remove();
 
     }
+    apfdestroy = () => {
+      d3.select("#filteredphasecanvas").remove();}
+
 }
 
 
 // Draw Plot
 let plt = new Plot(520, 280);
 let charts = plt.plot([], [], [], [], "Magnitude", "Phase");
+let apfchart = plt.apfplot([],[]);
 
 
 
@@ -207,6 +240,66 @@ function drawResponse(w, h_mag, h_phase){
   charts = plt.plot(w, h_mag, w, h_phase, "Magnitude", "Phase");
 
 }
+
+function drawApfResponse(w, h_phase){
+    
+  plt.apfdestroy();
+  charts = plt.apfplot(w, h_phase);
+
+}
+function getapfzap(r,i){
+  let sq= r*r + i*i;
+  let p =denormalize(r,i);
+  let zreal = r / sq ;
+  let zimj =  i / sq ;
+  let z=denormalize(zreal,zimj);
+  let zarr=[z[0],z[1]];
+  let parr=[p[0],p[1]];
+  return [zarr , parr];
+  
+}
+function applyAPF(a){
+
+  let sq= a[0]*a[0]+a[1]*a[1];
+  poles.push([(a[0]*100 + 150),(150 - a[1]*100)]);
+  let real = a[0] / sq ;
+  let imj =  a[1] / sq ;
+  zeros.push([(real*100 + 150),(150 - imj*100)]);
+  updateRespose();
+   
+}
+function review(){
+  const real=parseFloat(document.querySelector('#real').value);
+  const imaginary= parseFloat(document.querySelector('#imaginary').value);
+  console.log(real);
+  let apf  =getapfzap(real,imaginary);
+  console.log(apf[0]);
+  console.log(apf[1]);
+
+  let polesvalues = [getvalues(apf[1])];
+  let zerosvalues = [getvalues(apf[0])];
+  $.ajax({
+    type: 'POST',
+    url: 'http://127.0.0.1:5000//APFFilter',
+    data: JSON.stringify({zerosvalues, polesvalues}),
+    cache: false,
+    dataType: 'json',
+    async: false,
+    contentType: 'application/json',
+    processData: false,
+    success: function(data) {
+      w = data[0];
+      y_phase = data[1];
+    },
+});
+
+  drawApfResponse(w,y_phase) ;
+
+
+
+}
+
+
 // ----------------------- Mouse Events -----------------------------------------
 
 
@@ -355,8 +448,7 @@ function updateRespose() {
 });
 
   drawResponse(w, y_mag, y_phase);
-
-  
+  drawApfResponse(w,y_phase) ;
 }
 
 
@@ -400,16 +492,7 @@ function getFrequencyArray() {
 }
 
 
-function applyAPF(a){
-  sq= a[0]*a[0]+a[1]*a[1];
-  poles.push([(a[0]*100 + 150),(150 - a[1]*100)]);
-  real = a[0] / sq ;
-  imj =  a[1] / sq ;
-  zeros.push([(real*100 + 150),(150 - imj*100)]);
-  updateRespose();
 
-    
-}
 
 // listen for mouse events
 
