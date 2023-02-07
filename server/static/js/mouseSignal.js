@@ -35,7 +35,7 @@ let mouse_move = (event)=> {
     t+=0.02
     range = {range:[t-4.5, t+0.5]}
      layout['xaxis']= range
-    if(t>5){
+    if(t>4.5){
         Plotly.relayout(inputGraph, layout)
         Plotly.relayout(outputGraph, layout)
     }

@@ -435,8 +435,8 @@ document
   .addEventListener("mouseout", function(e) {
     handleMouseUp(e);
   })
-
-document.addEventListener("change", function(e) {
+let zerosOrPoles = document.getElementById('check1')
+zerosOrPoles.addEventListener("change", function(e) {
     if(e.target.checked){
         type='poles';
   

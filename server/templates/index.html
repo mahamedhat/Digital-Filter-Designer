@@ -140,11 +140,11 @@
             </div>
         </a>  
         <a ><i class='fas fa-trash-alt icon trash-icon' onclick="clearAll()"></i></a>
-        <a><i class="	fa fa-sign-out" id="export"></i></a>
-        <a><i class="fa fa-sign-in" id="import"></i></a>
+        <a><i class="fa fa-sign-in" id="export"></i></a>
+        <a><i  class="	fa fa-sign-out" id="import"></i></a>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        
+        <input id="upload" type="file" style="opacity: 0">
     </div>
 
     <div class="content" id="signal">
@@ -169,13 +169,14 @@
     <div class="content" id="outputGraph">
 
     </div>
-
+    <a id="downloadAnchorElem" style="display:none"></a>
  
 </div>
 
 <script src="../static/js/main.js"></script>
 <script src="../static/js/mouseSignal.js"></script>
 <script src="../static/js/apf.js"></script>
+<script src="../static/js/import_export.js"></script>
 
 </body>
 
