@@ -1,9 +1,11 @@
-
-
 let exportBtn = document.getElementById('export')
 let importBtn = document.getElementById('import')
 let upload = document.getElementById('upload')
+var allowClick = true;
 // writing
+
+// Must be disabled at the start of the program
+$('#canvas-style').addClass("disable");
 
 
 let exportFilter = ()=> {
@@ -68,3 +70,14 @@ upload.onchange = (event)=>{
 importBtn.onclick = ()=> {
     upload.click()
 }
+
+
+$('#import-signal').click(function () {
+    $('#canvas-style').removeClass("disable");
+    $('#signal').addClass("disable")
+});
+
+$('#enable-canvas').click(function () {
+    $('#canvas-style').addClass("disable");
+    $('#signal').removeClass("disable")
+});

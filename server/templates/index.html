@@ -30,6 +30,7 @@
     <!-- swiper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body onkeypress="del(event)">
@@ -112,19 +113,17 @@
         <canvas id="zplanecanvas" width="300" height="300" >
         </canvas>
     </div>
-    <!--   zeros or poles options    -->
-    <div class="controls-bar">
-        <a>
 
+    <!--   zeros or poles options    -->
+    <div class="controls-bar" id="filter-control-bar">
+        <a>
             <div class="select" id="select">
-                <input id="check1" type="checkbox" class="checkbox"  />
+                <input id="check1" type="checkbox" class="checkbox"/>
                 <div class="knobs"></div>
                 <div class="layer"></div>
             </div>
-
-
-
         </a>
+
         <a>
             <div class="outer">
                 <div class="delz" onclick="clearallZeros()">
@@ -132,6 +131,7 @@
                 </div>
             </div>
         </a>
+
         <a>
             <div class="outer">
                 <div class="delp" onclick="clearallPoles()">
@@ -139,36 +139,36 @@
                 </div>
             </div>
         </a>  
-        <a ><i class='fas fa-trash-alt icon trash-icon' onclick="clearAll()"></i></a>
+        <a><i class='fas fa-trash-alt icon trash-icon' onclick="clearAll()"></i></a>
         <a><i class="fa fa-sign-in" id="export"></i></a>
-        <a><i  class="	fa fa-sign-out" id="import"></i></a>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+        <a><i  class="fa fa-sign-out" id="import"></i></a>
         <input id="upload" type="file" style="opacity: 0">
     </div>
 
+    <!--   Magnitude response      -->
+    <div class="content" id="magres"></div>
+
+    <!--   Phase response     -->
+    <div class="content" id="phaseres"></div>
+
+
     <div class="content" id="signal">
-        <canvas id="mouseInput" width="300" height="300" >
+        <canvas id="mouseInput" width="300" height="300">
         </canvas>
     </div>
-    <!--   Magnitude response      -->
-   
 
-    <div class="content" id="magres">
-
+    <div class="controls-bar" id="signal-control-bar">
+        <a>
+                <div class="delz" id="import-signal">
+                    <label>import</label>
+                </div>
+        </a>
+        <a id="canvas-style"><i class='fa fa-mouse-pointer' id="enable-canvas"></i></a>
     </div>
     
-    
-    <!--   Phase response     -->
-    <div class="content" id="phaseres">
-    </div>
 
-    <div class="content" id="inputGraph">
-
-    </div>
-    <div class="content" id="outputGraph">
-
-    </div>
+    <div class="content" id="inputGraph"></div>
+    <div class="content" id="outputGraph"></div>
     <a id="downloadAnchorElem" style="display:none"></a>
  
 </div>
