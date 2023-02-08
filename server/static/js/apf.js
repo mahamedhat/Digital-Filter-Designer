@@ -43,11 +43,16 @@ const imaginary=document.querySelector('#imaginary')
 const list = document.querySelector("#list")
 
 function addItem(a,n){
+
     let x,y;
 
     if(n==1){
+        if((real.value=="" || imaginary.value=="" )||(parseFloat(real.value)==0 && parseFloat(imaginary.value)==0) ){
+            return}
+        else{
          x=real.value;
          y=imaginary.value;}
+        }
     if(n==0) {
         x=a[0];
         y=a[1];}    
@@ -88,13 +93,9 @@ function addItem(a,n){
             // console.log("poles"+poles);
 
             for(let i = 0; i<zeros.length;i++){
-
                 if(zeros[i][0] == z[0]  && zeros[i][1] == z[1]){
                     for(let j=0;j<poles.length;j++){
                         if(poles[j][0] == p[0]  && poles[j][1] == p[1] ){
-                        
-
-                
                             zeros.splice(i, 1);
                             poles.splice(j,1);
                             updateRespose();

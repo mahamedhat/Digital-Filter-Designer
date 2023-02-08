@@ -9,7 +9,7 @@ let polesvalues;
 let hit;
 let apfzeros=[];
 let apfpoles=[];
-
+let flag;
 
 let $canvas = $("#zplanecanvas");
 let canvasOffset = $canvas.offset();
@@ -65,8 +65,6 @@ function drawPlane(context) {
 
 
 function drawAll(context, allzeros, allpoles) {
-
-
 
   drawPlane(context);
   for (let i = 0; i < allzeros.length; i++) {
@@ -228,12 +226,6 @@ let apfchart = plt.apfplot([],[]);
 
 
 
-function inRange(num,mn,mx){
-  if (num<=mx && num>=mn) {return true;
-  }else return false;
-}
-
-
 function drawResponse(w, h_mag, h_phase){
     
   plt.destroy();
@@ -268,9 +260,14 @@ function applyAPF(a){
   updateRespose();
    
 }
+
 function review(){
   const real=parseFloat(document.querySelector('#real').value);
   const imaginary= parseFloat(document.querySelector('#imaginary').value);
+  if((document.querySelector('#real').value=="" || document.querySelector('#imaginary').value=="" )||(real ==0 && imaginary==0) ){
+    return}
+  // if(document.querySelector('#real').value == '' && document.querySelector('#imaginary').value == ''){return}
+  flag = 'review'
   console.log(real);
   let apf  =getapfzap(real,imaginary);
   console.log(apf[0]);
@@ -278,10 +275,11 @@ function review(){
 
   let polesvalues = [getvalues(apf[1])];
   let zerosvalues = [getvalues(apf[0])];
+
   $.ajax({
     type: 'POST',
-    url: 'http://127.0.0.1:5000//APFFilter',
-    data: JSON.stringify({zerosvalues, polesvalues}),
+    url: 'http://127.0.0.1:5000//digitalFilter',
+    data: JSON.stringify({zerosvalues, polesvalues, flag}),
     cache: false,
     dataType: 'json',
     async: false,
@@ -429,11 +427,11 @@ function updateRespose() {
 
   polesvalues = poles.map(getvalues);
   zerosvalues = zeros.map(getvalues);
-
+  flag = 'apply'
   $.ajax({
     type: 'POST',
     url: 'http://127.0.0.1:5000//digitalFilter',
-    data: JSON.stringify({zerosvalues, polesvalues}),
+    data: JSON.stringify({zerosvalues, polesvalues, flag}),
     cache: false,
     dataType: 'json',
     async: false,
@@ -443,7 +441,6 @@ function updateRespose() {
       w = data[0];
       y_mag = data[1];
       y_phase = data[2];
-      console.log(w)
     },
 });
 

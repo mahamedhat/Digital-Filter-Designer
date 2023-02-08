@@ -72,7 +72,7 @@ uploadSignal.onchange = (e)=>{
             y.push(d[keys[1]]);
         });
         layout = {xaxis:{range:[0,5]}}
-        Plotly.newPlot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Generated signal"})
+        Plotly.newPlot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"input signal"})
         Plotly.newPlot(outputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Filtered signal"})
         t = 0
         i = 0
@@ -108,6 +108,6 @@ $('#enable-canvas').click(function () {
         clearInterval(interval)
         working = false
     }
-    Plotly.newPlot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Generated signal"})
+    Plotly.newPlot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"input signal"})
     Plotly.newPlot(outputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Filtered signal"})
 });

@@ -22,7 +22,7 @@ let get_offset = ()=> {
 }
 let [offset_x, offset_y] = get_offset()
 let layout = {xaxis:{range:[0,5]}}
-Plotly.plot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Generated signal"})
+Plotly.plot(inputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"input signal"})
 Plotly.plot(outputGraph, [{y:[],x:[], type:'line'}], {xaxis:{range:[0,5]}, title:"Filtered signal"})
 let t = 0
 let mouse_move = (event)=> {
@@ -61,7 +61,6 @@ let update_output = (signalPoint)=>{
         success: function(data) {
             signalOutput = data[0];
           
-            console.log(signalOutput)
         },
     });
     return signalOutput
