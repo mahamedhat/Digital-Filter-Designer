@@ -30,15 +30,18 @@ let mouse_move = (event)=> {
     let mouseY = -1*parseInt(event.clientY - offset_y - 150);
     // console.log(mouseX)
     let filtered_point = update_output(mouseX);
-    Plotly.extendTraces(inputGraph, {y:[[mouseX]], x:[[t]]}, [0])
-    Plotly.extendTraces(outputGraph, {y:[[filtered_point]], x:[[t]]}, [0])
+    // Plotly.extendTraces(inputGraph, {y:[[mouseX]], x:[[t]]}, [0])
+    // Plotly.extendTraces(outputGraph, {y:[[filtered_point]], x:[[t]]}, [0])
+    // t+=0.02
+    // range = {range:[t-4.5, t+0.5]}
+    //  layout['xaxis']= range
+    // if(t>4.5){
+    //     Plotly.relayout(inputGraph, layout)
+    //     Plotly.relayout(outputGraph, layout)
+    // }
+    plot_input_Output(mouseX, filtered_point, t)
     t+=0.02
-    range = {range:[t-4.5, t+0.5]}
-     layout['xaxis']= range
-    if(t>5){
-        Plotly.relayout(inputGraph, layout)
-        Plotly.relayout(outputGraph, layout)
-    }
+
 }
 inputCanvas.addEventListener('mousemove', (e)=>{
     mouse_move(e)
@@ -62,4 +65,17 @@ let update_output = (signalPoint)=>{
         },
     });
     return signalOutput
+}
+
+let plot_input_Output = (inputPoint, outputPoint, t)=>{
+
+    Plotly.extendTraces(inputGraph, {y:[[inputPoint]], x:[[t]]}, [0])
+    Plotly.extendTraces(outputGraph, {y:[[outputPoint]], x:[[t]]}, [0])
+    // t+=0.02
+    range = {range:[t-4.5, t+0.5]}
+     layout['xaxis']= range
+    if(t>4.5){
+        Plotly.relayout(inputGraph, layout)
+        Plotly.relayout(outputGraph, layout)
+    }
 }

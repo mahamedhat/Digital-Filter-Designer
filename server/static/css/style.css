@@ -43,8 +43,8 @@ p{
   height: 90vh;
   grid-template-columns: 0.2fr 1fr 0.1fr 1fr 1fr;
   grid-template-areas:
-    " zplane controls-bar magres phaseres "
-    " signal controls-bar inputGraph outputGraph ";
+    " zplane filter-control-bar magres phaseres "
+    " signal signal-control-bar inputGraph outputGraph ";
   grid-gap: 1rem;
   font-weight: 800;
   font-size: 18px;
@@ -53,8 +53,6 @@ p{
   margin: 30px;
   margin-left: 15px !important;
   margin-top: 50px;
-
-
 }
 
 
@@ -62,7 +60,6 @@ p{
 
 /*** Boxes ***/
 .content{
-
   border-radius: 10px;
   /* padding-top: var(--main-padding); */
   display: flex;
@@ -73,26 +70,30 @@ p{
   width: 300px;
   height: 300px;
   margin-top: 20px;
+}
 
-  
+#filter-control-bar{
+  grid-area: filter-control-bar;
 }
 
 #signal {
   grid-area: signal;
-
-
 }
+
+#signal-control-bar {
+  grid-area: signal-control-bar;
+}
+
 #magres {
   width: 540px;
   grid-area: magres;
 }
 
-
-
 #phaseres {
   width: 540px;
   grid-area: phaseres;
 }
+
 #filteredphaseres {
   width: 450px !important;
   height: 250px;
@@ -144,14 +145,18 @@ p{
 .controls-bar {
   width: 45px;
   height: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   border-radius: 10px;
   background: rgb(238, 238, 238);
   align-self: center;
   margin-top: 15px;
 }
 
-.controls-bar a {
+.controls-bar a{
   display: block;
+  height: fit-content;
   text-align: center;
   padding: 5px;
   transition: all 0.3s ease;
@@ -165,8 +170,6 @@ p{
   background-color: white;
   border-radius: 20%;
   color: #000000 !important;
-
-
 }
 
 .active {
@@ -232,7 +235,9 @@ p{
 .delp {
   width: inherit;
   color: #000000 !important;
-
+}
+.Enable-Canvas{
+  width: fit-content;
 }
 
 label { 
@@ -244,6 +249,17 @@ label {
   transition: all .3s ease-in;
   opacity: 1;
   cursor: pointer;
+}
+
+button{
+  text-align: center;
+    font-size: .35em;
+    line-height: .35em;
+    text-transform: uppercase;
+    color: #000000;
+    transition: all .3s ease-in;
+    opacity: 1;
+    cursor: pointer;
 }
 
 
@@ -314,12 +330,12 @@ label {
 
 
 
-#export{
+#import{
   transform: rotate(270deg);
 }
 
 
-#import{
+#export{
   transform: rotate(90deg);
 }
 
@@ -496,6 +512,13 @@ img {
   text-align: center;
 }
 
+.disable{
+  background-color: gray;
+  opacity: 0.15;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 
 
 
@@ -611,4 +634,12 @@ li{
 }
 #filter-tab{
   cursor: pointer;
+}
+
+#upload{
+  width: 5px;
+  height: 5px;
+}
+#real ,#imaginary{
+  border-radius: 5px;
 }
