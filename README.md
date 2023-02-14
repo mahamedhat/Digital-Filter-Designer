@@ -4,11 +4,14 @@
 
 ## Table of contents
 
-- [Introduction](#introduction)
-- [Brief Explanation & Features](#brief-explanation-&-features)
-- [Preview](#preview)
-- [Run the Project](#run-the-project)
-- [Team](#team)
+- [Digital Filter Website](#digital-filter-website)
+  - [Table of contents](#table-of-contents)
+    - [Introduction](#introduction)
+    - [Brief Explanation \& Features](#brief-explanation--features)
+    - [Preview](#preview)
+    - [Run The project](#run-the-project)
+  - [Team](#team)
+    - [Submitted to:](#submitted-to)
 
 ### Introduction
 
@@ -22,6 +25,9 @@ Applying digital filter on either live generated or uploaded signal is a very im
 - Dynamic & Responsive live signal generation after applying the filter immediatly
 
 ### Preview
+
+![demo video](server/static/assests/demo-video.gif)
+
 
 ### Run The project
 
@@ -53,7 +59,7 @@ Digital Signal Processing (SBE3110) class project created by:
 | Team Members' Names  
 |------------------------------------------------------
 | [Ahmed Mohamed Elsarta](https://github.com/MohamedAIsmail)
-| [Mohamed Ahmed Ismail](https://github.com/MohamedAIsmail)  
+| [Mohamed Ahmed Ismail](https://github.com/ahmed-elsarta/)  
 | [Maha Medhat](https://github.com/mahamedhat)  
 | [Youssef Kadry](https://github.com/YousefKadry)
 
