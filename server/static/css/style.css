@@ -597,6 +597,10 @@ h1{
 #apflist{
   grid-area: apflist;
   margin-right: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 280px;
+  margin-top: 20px;
 
 }
 
